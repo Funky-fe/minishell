@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlima-fe <rlima-fe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/17 19:14:43 by rlima-fe          #+#    #+#             */
+/*   Updated: 2024/01/17 19:14:44 by rlima-fe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	sa_handler(int sig, siginfo_t *info, void *context)
@@ -13,12 +25,12 @@ void	sa_handler(int sig, siginfo_t *info, void *context)
 	}
 }
 
-static t_mini	init_ms(ac, av, env)
+static t_mini	init_ms(int ac, char **av, char **env)
 {
 	t_mini				ms;
-	struck sigaction	sa;
+	struct sigaction	sa;
 
-	ms = ft_bzero(&ms, sizeof (t_mini));
+	ft_bzero(&ms, sizeof (t_mini));
 	if (ac > 1)
 		exit_handler(&ms, "Error, use ./minishell" ,1);
 	ft_bzero(&sa, sizeof (sa));
@@ -30,5 +42,4 @@ int	main(int argc, char **argv, char **env)
 	t_mini	ms;
 
 	ms = init_ms(argc, argv, env);
-
 }
