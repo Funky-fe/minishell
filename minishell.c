@@ -6,7 +6,7 @@
 /*   By: rlima-fe <rlima-fe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:14:43 by rlima-fe          #+#    #+#             */
-/*   Updated: 2024/01/26 11:30:25 by rlima-fe         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:17:48 by rlima-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*get_input(t_mini *ms, const char *prompt)
 	
 	input = readline(prompt);
 	if (input && input[0])
-		//command history function
+		add_history(input);
 	else if (!input)
 		exit_handler(ms, EXIT_MSG, 0);
 	return (input);
@@ -69,5 +69,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		ms.input = get_input(&ms, ms.prompt);
 		if (ms.input && *ms.input)
+		{
+			
+		}
 	}
 }
