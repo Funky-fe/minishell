@@ -13,8 +13,13 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 4096
+# endif
+
 # include <stdlib.h>
-# include <unistd.h>
+# include <unistd.h> 
+# include <stdarg.h>
 
 typedef struct s_list
 {
