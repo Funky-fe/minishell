@@ -3,14 +3,14 @@ LIBFT_DIR	= libft/
 LIBFT		= ${LIBFT_DIR}libft.a
 SRC			= minishell.c utils.c free.c \
 			  lexer.c \
-			  parser.c \
+			  parser.c
 OBJ_DIR		= objects/
 OBJ			= ${addprefix ${OBJ_DIR}, ${SRC:%.c=%.o}}
 VPATH		= sources sources/builtin
 INCLUDES	= headers/ ${LIBFT_DIR}
 INCLUDES	:= ${addprefix -I, ${INCLUDES}}
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		=
 RLFLAGS		= -lreadline
 RM			= rm -rf
 

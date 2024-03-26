@@ -71,9 +71,7 @@ int	main(int argc, char **argv, char **env)
 		if (ms.input && *ms.input)
 		{
 			if (!parser (&ms.token, ms.input))
-			{
-				// executor
-			}
+				return (1);
 		}
 	}
 	return (0);

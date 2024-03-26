@@ -73,17 +73,3 @@ char	**ft_split(char const *s, char c)
 	phrase[j] = 0;
 	return (phrase);
 }
-
-#include <stdio.h>
-int		main(void)
-{
-	int i = 0;
-	char **tab;
-	tab = ft_split("lorem ipsum dolor sit amet", ' ');
-	while (i < 12)
-	{
-		printf("%s\n", tab[i]);
-		i++;
-	}
-	return (0);
-}

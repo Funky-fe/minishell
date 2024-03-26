@@ -14,11 +14,11 @@
 # define DEFINES_H
 
 # ifndef ERROR_MSG
-#  define ERROR_MSG "\033[1;31mERROR\n\033[0m"
+#  define ERROR_MSG "ERROR\n"
 # endif
 
 # ifndef EXIT_MSG
-#  define EXIT_MSG "\033[1;35mSee you soon, human!\033[0m"
+#  define EXIT_MSG "See you soon, human!"
 # endif
 
 # ifndef PROMPT_MSG

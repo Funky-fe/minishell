@@ -20,14 +20,15 @@ void	exit_handler(t_mini *ms, const char *msg, int code)
 	if (code && code != 127)
 		ft_putstr_fd(ERROR_MSG, 2);
 	if (msg)
-		ft_putendl_fd(msg, 2);
+		ft_putendl_fd((char *)msg, 2);
 	if (!code && !msg)
-		ft_putendl_fd(EXIT_MSG, 2);
+		ft_putendl_fd(EXIT_MSG, 1);
 	ms->input = free_ptr(ms->input);
 	ms->prompt = free_ptr(ms->prompt);
-	ms->envp = free_ptr(ms->envp);
-	ms->token = free_ptr(ms->token);
+	ms->envp = free_mat(ms->envp);
+	ms->token = free_token(ms->token);
 	rl_clear_history();
+	exit (code);
 }
 
 int	check_quotes(char c, int quotes)
@@ -62,7 +63,7 @@ char	**ft_matdup(char **mat)
 	temp = ft_calloc(i + 1, sizeof(char *));
 	if (!temp)
 		return (NULL);
-	i = 0
+	i = 0;
 	while (mat[i])
 	{
 		temp[i] = ft_strdup(mat[i]);

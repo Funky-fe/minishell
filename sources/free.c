@@ -19,11 +19,11 @@ char	*free_ptr(char *ptr)
 	return (NULL);
 }
 
-char	free_mat(char **mat)
+char	**free_mat(char **mat)
 {
 	size_t	i;
 
-	i = 0
+	i = 0;
 	while (mat && mat[i])
 	{
 		mat[i] = free_ptr(mat[i]);

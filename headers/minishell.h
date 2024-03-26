@@ -58,6 +58,9 @@
 // write()
 # include <unistd.h>
 
+// path_max
+# include <limits.h>
+
 # include "libft.h"
 # include "defines.h"
 # include "structs.h"

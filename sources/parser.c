@@ -63,11 +63,11 @@ static int	is_buildin(char *token)
 	return (0);
 }
 
-static char	*split_args(char *input)
+static char	**split_args(char *input)
 {
 	int		i;
 	int		quotes;
-	char	*ret;
+	char	**ret;
 
 	i = -1;
 	quotes = 0;
