@@ -12,26 +12,26 @@
 
 #include "../minishell.h"
 
-void	blt_central(t_execlist *execl, int i, char **exec_str) //err_stt
+void	blt_central(t_execlist *execl, int i, char **exec_str, char ***envp)
 {
 	int		err;
 
 	err = 0;
 	ft_printf("IM INSIDE BUILTFT\n");
 	if (ft_strncmp(exec_str[0], "cd", 3) == 0)
-		err = ft_cd(execl->chunk[i]->cmd_n_args, &execl->my_envp, execl);
+		err = ft_cd(execl->chunk[i]->cmd_n_args, envp);
 	else if (ft_strncmp(exec_str[0], "echo", 5) == 0)
 		err = ft_echo(execl->chunk[i]->cmd_n_args);
 	else if (ft_strncmp(exec_str[0], "env", 4) == 0)
-		err = ft_env(execl->chunk[i]->cmd_n_args, &execl->my_envp);
+		err = ft_env(execl->chunk[i]->cmd_n_args, envp);
     else if (ft_strncmp(exec_str[0], "exit", 5) == 0)
 		err = ft_exit(execl->chunk[i]->cmd_n_args);
     else if (ft_strncmp(exec_str[0], "export", 7) == 0)
-		err = ft_export(execl->chunk[i]->cmd_n_args, &execl->my_envp, execl);
+		err = ft_export(execl->chunk[i]->cmd_n_args, envp);
     else if (ft_strncmp(exec_str[0], "pwd", 4) == 0)
-		err = ft_pwd(execl->chunk[i]->cmd_n_args, &execl->my_envp);
+		err = ft_pwd(execl->chunk[i]->cmd_n_args, *envp);
     else if (ft_strncmp(exec_str[0], "unset", 6) == 0)
-		err = ft_unset(execl->chunk[i]->cmd_n_args, &execl->my_envp, execl);
+		err = ft_unset(execl->chunk[i]->cmd_n_args, envp);
 	ft_printf("returned to err: %d\n", err);
 	//return (err); //caso seja preciso, mas nao me parece
 }

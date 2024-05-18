@@ -102,13 +102,13 @@ void	free_chunk(t_chunk *chunk);
 void	free_exec(t_execlist *exec);
 
 // BUILT-IN
-void	blt_central(t_execlist *execl, int i, char **exec_str);
-int		ft_cd(char **cmd, char ***env, t_execlist *execl);
+void	blt_central(t_execlist *execl, int i, char **exec_str, char ***envp);
+int		ft_cd(char **cmd, char ***env);
 int		ft_echo(char **cmd);
 int		ft_env(char **cmd, char ***envp);
 int		ft_exit(char **cmd);
-int		ft_export(char **cmd, char ***envp, t_execlist *execl);
-int		ft_pwd(char **cmd, char ***envp);
-int		ft_unset(char **cmd, char ***envp, t_execlist *execl);
+int		ft_export(char **cmd, char ***envp);
+int		ft_pwd(char **cmd, char **envp);
+int		ft_unset(char **cmd, char ***envp);
 
 #endif

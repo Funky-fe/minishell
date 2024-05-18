@@ -12,43 +12,29 @@
 
 #include "../minishell.h"
 
-void	exit_handler(const char *msg, int code)
-{
-	if (code && code != 127)
-		ft_putstr_fd("ERROR\n", 2);
-	if (msg)
-		ft_putendl_fd((char *)msg, 2);
-	if (!code && !msg)
-		ft_putendl_fd("See you soon, human!", 1);
-	rl_clear_history();
-	exit (code);
-}
-
-int	is_only_zeros(char	*nbr)
-{
-	int	i;
-
-	i = -1;
-	while (nbr[++i])
-	{
-		if (nbr[i] != '0')
-			return (0);
-	}
-	return (1);
-}
-
-int	is_valid(char *nbr)
+static int	is_valid_number(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (nbr[0] == '+')
-		i++;
-	while (nbr[i])
+	while (str && str[i])
 	{
-		if (!ft_isdigit(nbr[i]))
+		if (!(ft_isdigit (str[i]) || str[i] == '+'))
 			return (0);
 		i++;
+	}
+	return (1);
+}
+
+static int	is_only_zeros(char *cmd)
+{
+	int	i;
+
+	i = -1;
+	while (cmd[++i])
+	{
+		if (cmd[i] != '0')
+			return (0);
 	}
 	return (1);
 }
@@ -57,23 +43,24 @@ int	ft_exit(char **cmd)
 {
 	int	code;
 
-	//ft_printf("INSIDE EXIT:\n");
-	code = 0;
 	if (!cmd[1])
+	{
 		cmd = free_db_str(cmd);
+		return (0);
+	}
 	if (is_only_zeros(cmd[1]))
 	{
 		cmd = free_db_str(cmd);
 		return (0);
 	}
-	if (!cmd[2] && is_valid(cmd[1]))
+	if (!cmd[2] && is_valid_number (cmd[1]))
 	{
 		code = ft_atoi(cmd[1]);
 		cmd = free_db_str(cmd);
-		ft_printf("exited with code: %d\n", code);
+		ft_printf("Exited with error code: %d", code);
 		return (code);
 	}
 	cmd = free_db_str(cmd);
-	ft_printf("%s : exit: too many arguments", NPROMPT);
-	return (2);
+	ft_printf("minishell >> : exit : invalid usage");
+	return (42);
 }

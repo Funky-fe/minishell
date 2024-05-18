@@ -12,20 +12,20 @@
 
 #include "../minishell.h"
 
-void	remove_var(char *var, char ***envp)
+static void	remove_var(char *var, char ***envp)
 {
-	int		i;
+	size_t	i;
 	char	*temp_var;
 
+	i = 0;
 	if (!var || !envp)
 		return ;
-	temp_var = ft_strjoin(var, "=");
-	i = 0;
+	temp_var = ft_strjoin (var, "=");
 	while (envp[0][i] && ft_strncmp(envp[0][i], temp_var, ft_strlen(temp_var)))
 		i++;
 	if (*envp && envp[0][i])
 	{
-		envp[0][i] = free_str(envp[0][i]);
+		envp[0][i] = free_str (envp[0][i]);
 		envp[0][i] = envp[0][i + 1];
 		i++;
 		while (envp[0][i])
@@ -35,16 +35,12 @@ void	remove_var(char *var, char ***envp)
 		}
 		envp[0][i] = NULL;
 	}
-	else
-		ft_printf("unset: %s: invalid parameter name", var);
-	temp_var = free_str(temp_var);
+	temp_var = free_str (temp_var);
 }
 
-int	ft_unset(char **cmd, char ***envp, t_execlist *execl)
+int	ft_unset(char **cmd, char ***envp)
 {
 	while (*(++cmd))
-		remove_var(*cmd, envp);
-	execl->my_envp = envp[0];
-	free_db_str(envp[0]);
+		remove_var (*cmd, envp);
 	return (0);
 }

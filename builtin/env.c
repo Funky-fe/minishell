@@ -14,21 +14,21 @@
 
 int	ft_env(char **cmd, char ***envp)
 {
-	int	i;
+	size_t	i;
 
-	if (!cmd[1])
+	if (cmd[1])
+	{
+		ft_printf("minishell >> : env:  invalid usage\n");
+		return (42);
+	}
+	else
 	{
 		i = 0;
 		while (envp && *envp && envp[0][i])
 		{
-			ft_printf("%s\n", envp[0][i]);
+			ft_printf ("%s\n", envp[0][i]);
 			i++;
 		}
 		return (0);
-	}
-	else
-	{
-		ft_printf("- %s: env: invalid usage\n", NPROMPT);
-		return (69);;
 	}
 }
