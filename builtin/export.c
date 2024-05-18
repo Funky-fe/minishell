@@ -30,7 +30,7 @@ int	get_var_pos(char *var, char **envp)
 	return (var_pos);
 }
 
-void	update_var(char *var, int var_pos, char **envp)
+void	update_var(char *var, int var_pos, char ***envp, t_execlist *execl)
 {
 	char	**temp_envp;
 
@@ -39,14 +39,14 @@ void	update_var(char *var, int var_pos, char **envp)
 		temp_envp = ft_calloc(var_pos + 2, sizeof(char *));
 		temp_envp[var_pos] = var;
 		while (var_pos--)
-			temp_envp[var_pos] = envp[var_pos];
-		envp = free_db_str(envp);
-		envp = temp_envp;
+			temp_envp[var_pos] = envp[0][var_pos];
+		envp[0] = free_db_str(envp[0]);
+		execl->my_envp = temp_envp;
 	}
 	else
 	{
-		envp[var_pos] = free_str(envp[var_pos]);
-		envp[var_pos] = ft_strdup(var);
+		envp[0][var_pos] = free_str(envp[0][var_pos]);
+		envp[0][var_pos] = ft_strdup(var);
 	}
 }
 
@@ -70,31 +70,27 @@ int	valid_var(char *var)
 	return (res);
 }
 
-void	ft_export(int *err, char **cmd, char **envp)
+int	ft_export(char **cmd, char ***envp, t_execlist *execl)
 {
 	int	i;
 	int	var_pos;
 
+	ft_printf("INSIDE EXPORT:\n");
 	if (!cmd[1])
-		ft_env(err, cmd, envp);
+		ft_env(cmd, envp);
 	i = 1;
-	while (cmd[i])
+	while (cmd[++i])
 	{
 		if (valid_var(cmd[i]) && ft_strchr(cmd[i], '='))
 		{
-			*err = 0;
-			var_pos = get_var_pos(cmd[i], envp);
-			update_var(cmd[i], var_pos, envp);
+			var_pos = get_var_pos(cmd[i], *envp);
+			update_var(cmd[i], var_pos, envp, execl);
 		}
 		else if (!valid_var(cmd[i]))
 		{
-			ft_putstr_fd(NPROMPT": export: ", 2);
-			ft_putstr_fd(cmd[i], 2);
-			ft_putstr_fd(": not a valid identifier\n", 2);
-			*err = 69;
+			ft_printf("%s: export: %s: not a valid identifier\n", NPROMPT, cmd[i]);
+			return (69);
 		}
-		else
-			*err = 0;
-		i++;
 	}
+	return (0);
 }

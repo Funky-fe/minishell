@@ -53,26 +53,27 @@ int	is_valid(char *nbr)
 	return (1);
 }
 
-void	ft_exit(char **cmd)
+int	ft_exit(char **cmd)
 {
 	int	code;
 
+	//ft_printf("INSIDE EXIT:\n");
+	code = 0;
 	if (!cmd[1])
-	{
 		cmd = free_db_str(cmd);
-		exit_handler(NULL, 0);
-	}
 	if (is_only_zeros(cmd[1]))
 	{
 		cmd = free_db_str(cmd);
-		exit_handler(NULL, 0);
+		return (0);
 	}
 	if (!cmd[2] && is_valid(cmd[1]))
 	{
 		code = ft_atoi(cmd[1]);
 		cmd = free_db_str(cmd);
-		exit_handler("exited with code: ", code);
+		ft_printf("exited with code: %d\n", code);
+		return (code);
 	}
 	cmd = free_db_str(cmd);
-	exit_handler("-" NPROMPT ": exit: too many arguments", 2);
+	ft_printf("%s : exit: too many arguments", NPROMPT);
+	return (2);
 }

@@ -19,19 +19,20 @@ void	blt_central(t_execlist *execl, int i, char **exec_str) //err_stt
 	err = 0;
 	ft_printf("IM INSIDE BUILTFT\n");
 	if (ft_strncmp(exec_str[0], "cd", 3) == 0)
-		ft_cd(&err, execl->chunk[i]->cmd_n_args, execl->my_envp);
+		err = ft_cd(execl->chunk[i]->cmd_n_args, &execl->my_envp, execl);
 	else if (ft_strncmp(exec_str[0], "echo", 5) == 0)
-		ft_echo(&err, execl->chunk[i]->cmd_n_args);
+		err = ft_echo(execl->chunk[i]->cmd_n_args);
 	else if (ft_strncmp(exec_str[0], "env", 4) == 0)
-		ft_env(&err, execl->chunk[i]->cmd_n_args, execl->my_envp);
+		err = ft_env(execl->chunk[i]->cmd_n_args, &execl->my_envp);
     else if (ft_strncmp(exec_str[0], "exit", 5) == 0)
-		ft_exit(execl->chunk[i]->cmd_n_args);
+		err = ft_exit(execl->chunk[i]->cmd_n_args);
     else if (ft_strncmp(exec_str[0], "export", 7) == 0)
-		ft_export(&err, execl->chunk[i]->cmd_n_args, execl->my_envp);
+		err = ft_export(execl->chunk[i]->cmd_n_args, &execl->my_envp, execl);
     else if (ft_strncmp(exec_str[0], "pwd", 4) == 0)
-		ft_pwd(&err, execl->chunk[i]->cmd_n_args, execl->my_envp);
+		err = ft_pwd(execl->chunk[i]->cmd_n_args, &execl->my_envp);
     else if (ft_strncmp(exec_str[0], "unset", 6) == 0)
-		ft_unset(&err, execl->chunk[i]->cmd_n_args, execl->my_envp);
+		err = ft_unset(execl->chunk[i]->cmd_n_args, &execl->my_envp, execl);
+	ft_printf("returned to err: %d\n", err);
 	//return (err); //caso seja preciso, mas nao me parece
 }
 

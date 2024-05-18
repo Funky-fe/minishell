@@ -12,35 +12,39 @@
 
 #include "../minishell.h"
 
-void	remove_var(char *var, char **envp)
+void	remove_var(char *var, char ***envp)
 {
-	int	i;
+	int		i;
 	char	*temp_var;
 
 	if (!var || !envp)
 		return ;
 	temp_var = ft_strjoin(var, "=");
 	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], temp_var, ft_strlen(temp_var)))
+	while (envp[0][i] && ft_strncmp(envp[0][i], temp_var, ft_strlen(temp_var)))
 		i++;
-	if (envp && envp[i])
+	if (*envp && envp[0][i])
 	{
-		envp[i] = free_str(envp[i]);
-		envp[i] = envp[i + 1];
+		envp[0][i] = free_str(envp[0][i]);
+		envp[0][i] = envp[0][i + 1];
 		i++;
-		while (envp[i])
+		while (envp[0][i])
 		{
-			envp[i] = envp[i + 1];
+			envp[0][i] = envp[0][i + 1];
 			i++;
 		}
-		envp[i] = NULL;
+		envp[0][i] = NULL;
 	}
+	else
+		ft_printf("unset: %s: invalid parameter name", var);
 	temp_var = free_str(temp_var);
 }
 
-void	ft_unset(int *err, char **cmd, char **envp)
+int	ft_unset(char **cmd, char ***envp, t_execlist *execl)
 {
 	while (*(++cmd))
 		remove_var(*cmd, envp);
-	*err = 0;
+	execl->my_envp = envp[0];
+	free_db_str(envp[0]);
+	return (0);
 }

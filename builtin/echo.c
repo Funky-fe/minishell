@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	ft_echo(int *err, char **cmd)
+int	ft_echo(char **cmd)
 {
 	int newline;
 	int i;
@@ -38,5 +38,5 @@ void	ft_echo(int *err, char **cmd)
 	}
 	if (newline)
 		ft_printf("\n");
-	*err = 0;
+	return (0);
 }

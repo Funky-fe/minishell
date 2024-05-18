@@ -12,23 +12,23 @@
 
 #include "../minishell.h"
 
-void	ft_env(int *err, char **cmd, char **envp)
+int	ft_env(char **cmd, char ***envp)
 {
 	int	i;
 
 	if (!cmd[1])
 	{
 		i = 0;
-		while (envp && *envp && envp[i][0])
+		while (envp && *envp && envp[0][i])
 		{
-			ft_printf("%s\n", envp[i]);
+			ft_printf("%s\n", envp[0][i]);
 			i++;
 		}
-		*err = 0;
+		return (0);
 	}
 	else
 	{
-		ft_putstr_fd("Bad usage, burro.", 2);
-		*err = 69;
+		ft_printf("- %s: env: invalid usage\n", NPROMPT);
+		return (69);;
 	}
 }

@@ -12,22 +12,22 @@
 
 #include "../minishell.h"
 
-void ft_pwd(int *err, char **cmd, char **envp)
+int	ft_pwd(char **cmd, char ***envp)
 {
 	int	i;
 
 	if (!cmd[1])
 	{
 		i = 0;
-		while (envp && ft_strncmp(envp[i], "PWD=", 4))
+		while (envp && ft_strncmp(envp[0][i], "PWD=", 4))
 			i++;
-		if (envp && envp[i])
+		if (envp && envp[0][i])
 			ft_printf("%s", envp[i] + 4);
 	}
 	else
 	{
-
 		ft_putstr_fd("Bad usage, burro.", 2);
-		*err = 69;
+		return (69);
 	}
+	return (0);
 }

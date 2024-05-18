@@ -103,12 +103,12 @@ void	free_exec(t_execlist *exec);
 
 // BUILT-IN
 void	blt_central(t_execlist *execl, int i, char **exec_str);
-void	ft_cd(int *err, char **cmd, char **env);
-void	ft_echo(int *err, char **cmd);
-void	ft_env(int *err, char **cmd, char **envp);
-void	ft_exit(char **cmd);
-void	ft_export(int *err, char **cmd, char **envp);
-void    ft_pwd(int *err, char **cmd, char **envp);
-void	ft_unset(int *err, char **cmd, char **envp);
+int		ft_cd(char **cmd, char ***env, t_execlist *execl);
+int		ft_echo(char **cmd);
+int		ft_env(char **cmd, char ***envp);
+int		ft_exit(char **cmd);
+int		ft_export(char **cmd, char ***envp, t_execlist *execl);
+int		ft_pwd(char **cmd, char ***envp);
+int		ft_unset(char **cmd, char ***envp, t_execlist *execl);
 
 #endif
